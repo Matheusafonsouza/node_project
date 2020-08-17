@@ -31,7 +31,7 @@ app.put('/projects/:id', (req, res) => {
     const { id } = req.params;
     const { title, owner } = req.body;
 
-    const projectIndex =  projects.findIndex(project => project.id === id);
+    const projectIndex = projects.findIndex(project => project.id === id);
 
     if (projectIndex < 0) {
         return res.status(400).json({ error: 'Project not found.' });
@@ -47,6 +47,21 @@ app.put('/projects/:id', (req, res) => {
 
     return res.status(200).json(project);
     
+});
+
+app.delete('/projects/:id', (req, res) => {
+    const { id } = req.params;
+    
+    const projectIndex = projects.findIndex(project => project.id === id);
+
+    if (projectIndex < 0) {
+        return res.status(400).json({ error: 'Project not found.' });
+    }
+
+    projects.splice(projectIndex, 1);
+
+    return res.status(200).json(projects);
+
 });
 
 //listen
